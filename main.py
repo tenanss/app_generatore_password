@@ -25,3 +25,9 @@ async def generate_password(length: int = 12):
     # Unisce e assicura la lunghezza esatta
     password_ai = (base + extra)[:length]
     return {"password": password_ai}
+
+from fastapi.responses import FileResponse
+
+@app.get("/manifest.json")
+async def get_manifest():
+    return FileResponse("manifest.json")

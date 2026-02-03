@@ -40,7 +40,7 @@
     <p id="strength-text" class="text-[10px] text-slate-500 uppercase tracking-tighter">AFFIDABILITÀ: MEDIA</p>
 </div>
 
-            <div class="p-3 bg-slate-900/30 rounded-xl border border-slate-700/50">
+            <div class="p-3 bg-slate-900/30 rounded-xl border border-slate-700/50 mb-6">
                 <p class="text-[10px] text-slate-500 text-center leading-tight">
                     🔒 <strong>Sicurezza Pro:</strong> Algoritmo crittografico <code>secrets</code> attivo. 
     Generazione locale immediata, nessun dato viene trasmesso.
@@ -100,6 +100,39 @@ function copyToClipboard() {
         }, 1500);
     });
 }
+const slider = document.getElementById('length-slider');
+const strengthBar = document.getElementById('strength-bar');
+const strengthText = document.getElementById('strength-text');
+const lengthVal = document.getElementById('length-val');
+
+function updateStrength(val) {
+    // Aggiorna il numeretto della lunghezza accanto allo slider
+    lengthVal.innerText = val;
+    
+    // Calcola la percentuale di riempimento (basata sul range 12-24)
+    const percent = ((val - 12) / (24 - 12)) * 100;
+    strengthBar.style.width = percent + '%';
+
+    // Gestione dinamica di colori e messaggi
+    if (val < 16) {
+        strengthBar.className = 'h-full bg-red-500 transition-all duration-500';
+        strengthText.innerText = 'AFFIDABILITÀ: MEDIA';
+    } else if (val < 20) {
+        strengthBar.className = 'h-full bg-yellow-500 transition-all duration-500';
+        strengthText.innerText = 'AFFIDABILITÀ: ALTA';
+    } else {
+        strengthBar.className = 'h-full bg-green-500 transition-all duration-500';
+        strengthText.innerText = 'AFFIDABILITÀ: CRITTOGRAFICA';
+    }
+}
+
+// Evento che scatta ogni volta che sposti lo slider
+slider.oninput = function() {
+    updateStrength(this.value);
+};
+
+// Inizializzazione al caricamento della pagina
+updateStrength(slider.value);
     </script>
 </body>
 </html>
